@@ -4,7 +4,8 @@
   "description": "showing top 5 players who won all the games till now",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"nodemon index.js"
   },
   "repository": {
     "type": "git",
