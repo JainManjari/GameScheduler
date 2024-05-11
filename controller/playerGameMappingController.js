@@ -6,8 +6,10 @@ const moment = require("moment");
 
 module.exports.recalibratePlayerGameMapping = async function (req, res) {
   try {
-    const today = moment().endOf("day");
-    const yesterday = moment(today).subtract(1, "days").startOf("day");
+    const today = moment();
+    const yesterday = moment(today).subtract(2, "hours");
+
+    console.log("started ", today, yesterday);
 
     let games = await Game.find({
       createdAt: {
@@ -15,6 +17,14 @@ module.exports.recalibratePlayerGameMapping = async function (req, res) {
         $lte: today.toDate(),
       },
     });
+
+    if (games.length == 0) {
+      return res.status(200).json({
+        date: {
+          message: `No new games created btw ${yesterday} and ${today} `,
+        },
+      });
+    }
 
     let playerIdMapping = {};
     let playerGameIdMapping = {};
@@ -55,7 +65,7 @@ module.exports.recalibratePlayerGameMapping = async function (req, res) {
         }
         playerGameMapping = playerGameIdMapping[playerId];
 
-        if (playerGameMapping.gameScores.length===0) {
+        if (playerGameMapping.gameScores.length === 0) {
           playerGameMapping.gameScores.push({
             gameId: game._id.toString(),
             score: score,
@@ -65,7 +75,7 @@ module.exports.recalibratePlayerGameMapping = async function (req, res) {
         } else {
           let found = false;
           for (let gameScore of playerGameMapping.gameScores) {
-            if (gameScore.gameId==game._id.toString()) {
+            if (gameScore.gameId == game._id.toString()) {
               found = true;
               break;
             }
@@ -163,3 +173,30 @@ module.exports.getTopPlayers = async function (req, res) {
     });
   }
 };
+
+
+module.exports.getAllTopPlayers = async function (req, res) {
+    try {
+      let playerGameMapping = await PlayerGameMapping.find({})
+        .sort({ totalScore: -1 })
+  
+      playerGameMapping = playerGameMapping.map((playerGameMap) => ({
+        playerName: playerGameMap.playerName,
+        totalGames: playerGameMap.totalGames,
+        totalScore: playerGameMap.totalScore,
+      }));
+  
+      return res.status(200).json({
+        data: {
+          playerGameMapping,
+        },
+      });
+    } catch (err) {
+      console.log("error in recalibrating player game mapping controller ", err);
+      return res.status(500).json({
+        data: {
+          error: err,
+        },
+      });
+    }
+  };
