@@ -3,6 +3,7 @@ const port = 8000;
 const path = require("path");
 
 const db = require("./config/mongoose");
+const scheulder = require('./cron/scheluder');
 
 const app = express();
 
