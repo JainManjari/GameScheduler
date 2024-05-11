@@ -1,13 +1,13 @@
 const cron = require("node-cron");
+const moment = require("moment");
+
+const Player = require("../models/player");
+const Game = require("../models/game");
+const PlayerGameMapping = require("../models/playerGameMapping");
 
 function scheduler() {
   cron.schedule("0 */1 * * * *", async () => {
     try {
-      const Player = require("../models/player");
-      const Game = require("../models/game");
-      const PlayerGameMapping = require("../models/playerGameMapping");
-
-      const moment = require("moment");
       const today = moment();
       const yesterday = moment(today).subtract(2, "hours");
 
@@ -36,7 +36,7 @@ function scheduler() {
           let player;
 
           if (!(playerId in playerIdMapping)) {
-            player = Player.findById(playerId);
+            player = await Player.findById(playerId);
             playerIdMapping[playerId] = player;
           }
 
