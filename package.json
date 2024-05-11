@@ -1,0 +1,28 @@
+{
+  "name": "game",
+  "version": "1.0.0",
+  "description": "showing top 5 players who won all the games till now",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JainManjari/GameScheduler.git"
+  },
+  "keywords": [
+    "game",
+    "player",
+    "top",
+    "scores"
+  ],
+  "author": "Manjari Jain",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JainManjari/GameScheduler/issues"
+  },
+  "homepage": "https://github.com/JainManjari/GameScheduler#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
