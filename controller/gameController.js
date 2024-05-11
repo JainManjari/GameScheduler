@@ -32,8 +32,16 @@ module.exports.createGame = async function (req, res) {
       playerScores: gameData.playerScores,
     });
 
+    let responseData = {
+      count: gameData.count,
+      playerScores: gameData.playerScores.map((playerScore) => ({
+        name: playerScore.name,
+        score: playerScore.score,
+      })),
+    };
+
     return res.json(200, {
-      gameData,
+      responseData,
     });
   } catch (err) {
     console.log("error in creating game controller ", err);
