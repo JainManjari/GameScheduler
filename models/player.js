@@ -1,18 +1,20 @@
-const mongoose=require('mongoose');
+const mongoose = require("mongoose");
 
-const playerSchema = new mongoose.Schema({
-    name:
-    {
-        type:String,
-        required:true
+const playerSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
     },
-    email:{
-        type:String,
-        required:true
-    }
-},{
-    timestamps:true
-});
+    email: {
+      type: String,
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-const player =mongoose.model("player",playerSchema);
-module.exports=player;
+const Player = mongoose.model("player", playerSchema);
+module.exports = Player;

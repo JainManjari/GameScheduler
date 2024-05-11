@@ -1,9 +1,9 @@
-const express=require('express');
-const router=express.Router();
-const playerController = require('../controller/playerController');
+const express = require("express");
+const router = express.Router();
+const playerController = require("../controller/playerController");
 
 console.log("player router loaded");
 
-router.post('/', playerController.createPlayer);
+router.post("/", playerController.createPlayer);
 
-module.exports=router;
+module.exports = router;
