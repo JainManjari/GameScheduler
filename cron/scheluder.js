@@ -1,7 +1,7 @@
 const cron = require("node-cron");
 
 function scheduler() {
-  cron.schedule("0 */5 * * * *", async () => {
+  cron.schedule("0 */1 * * * *", async () => {
     try {
       const Player = require("../models/player");
       const Game = require("../models/game");

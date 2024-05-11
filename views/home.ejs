@@ -7,19 +7,20 @@
   </head>
   <body>
     <h1>Top 5 Players</h1>
-    <ol>
+    <ol id="top-5-players">
       <% for(let player of topPlayers) { %>
       <li>
         <div>
           <b><%= player.playerName %></b>
-          <br>
-          <b>Total Score </b> <%= player.totalScore %> 
-          <br>
-          <b>Total Games </b>: 
-          <%=player.totalGames %>
+          <br />
+          <b>Total Score </b> <%= player.totalScore %>
+          <br />
+          <b>Total Games </b>: <%=player.totalGames %>
         </div>
       </li>
       <% } %>
     </ol>
   </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/home.js"></script>
 </html>
