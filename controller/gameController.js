@@ -56,10 +56,23 @@ module.exports.createGame = async function (req, res) {
 module.exports.getAllGames = async function (req, res) {
   try {
     let games = await Game.find({});
+
+    let responseData = [];
+
+    for(let game of games) {
+      let gameObj = {};
+      gameObj.noOfPlayers = game.players;
+      gameObj.playerScore = game.playerScores.map((playerScore) => ({
+        name: playerScore.name,
+        score: playerScore.score,
+      }));
+      responseData.push(gameObj);
+    }
+
     return res.status(200).json({
       data: {
         count: games.length,
-        games,
+        responseData,
       },
     });
   } catch (err) {

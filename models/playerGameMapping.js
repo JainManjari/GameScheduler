@@ -1,3 +1,4 @@
+const { type } = require("express/lib/response");
 const mongoose = require("mongoose");
 
 const playerGameMappingSchema = new mongoose.Schema(
@@ -5,6 +6,10 @@ const playerGameMappingSchema = new mongoose.Schema(
     player: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Player",
+    },
+    playerName: {
+      type: String,
+      required: true,
     },
     gameScores: [
       {

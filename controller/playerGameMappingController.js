@@ -48,8 +48,10 @@ module.exports.recalibratePlayerGameMapping = async function (req, res) {
               totalGames: 0,
               totalScore: 0,
               gameScores: [],
+              playerName: player.name
             });
           }
+          playerGameMapping.playerName = player.name;
           playerGameIdMapping[playerId] = playerGameMapping;
         }
         playerGameMapping = playerGameIdMapping[playerId];
@@ -75,6 +77,7 @@ module.exports.recalibratePlayerGameMapping = async function (req, res) {
             gameScores: obj.gameScores,
             totalGames: obj.totalGames,
             totalScore: obj.totalScore,
+            playerName: obj.playerName
           },
         },
       };
@@ -82,10 +85,23 @@ module.exports.recalibratePlayerGameMapping = async function (req, res) {
 
     await PlayerGameMapping.bulkWrite(bulkOps);
 
+    let responseData = [];
+
+    for(let playerGameMapping of playerGameMappings) {
+        let playerGameMapObj = {};
+        playerGameMapObj.playerName = playerGameMapping.playerName;
+        playerGameMapObj.totalScore = playerGameMapping.totalScore;
+        playerGameMapObj.totalGames = playerGameMapping.totalGames;
+        playerGameMapObj.gameScores = playerGameMapping.gameScores.map((gameScore) => ({
+            score: gameScore.score,
+        }))
+        responseData.push(playerGameMapObj);
+    }
+
     return res.status(200).json({
       data: {
         count: games.length,
-        playerGameMappings,
+        responseData,
       },
     });
   } catch (err) {
@@ -103,6 +119,12 @@ module.exports.getTopPlayers = async function (req, res) {
     let playerGameMapping = await PlayerGameMapping.find({})
       .sort({ totalScore: -1 })
       .limit(5);
+
+    playerGameMapping = playerGameMapping.map((playerGameMap) => ({
+      playerName: playerGameMap.playerName,
+      totalGames: playerGameMap.totalGames,
+      totalScore: playerGameMap.totalScore,
+    }));
 
     return res.status(200).json({
       data: {
