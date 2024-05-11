@@ -6,5 +6,6 @@ console.log("game router loaded");
 
 router.post("/", gameController.createGame);
 router.get("/all", gameController.getAllGames);
+router.use("/recalibrate", require("./playerGameMappingRoutes"));
 
 module.exports = router;

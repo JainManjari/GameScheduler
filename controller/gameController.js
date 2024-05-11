@@ -40,7 +40,7 @@ module.exports.createGame = async function (req, res) {
       })),
     };
 
-    return res.json(200, {
+    return res.status(200).json({
       responseData,
     });
   } catch (err) {
@@ -56,7 +56,7 @@ module.exports.createGame = async function (req, res) {
 module.exports.getAllGames = async function (req, res) {
   try {
     let games = await Game.find({});
-    return res.json(200, {
+    return res.status(200).json({
       data: {
         count: games.length,
         games,
@@ -64,7 +64,7 @@ module.exports.getAllGames = async function (req, res) {
     });
   } catch (err) {
     console.log("error in getting all games controller ", err);
-    return res.json(500, {
+    return res.status(500).json({
       data: {
         error: err,
       },
