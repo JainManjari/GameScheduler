@@ -5,5 +5,6 @@ const playerController = require("../controller/playerController");
 console.log("player router loaded");
 
 router.post("/", playerController.createPlayer);
+router.get("/all", playerController.getAllPlayers);
 
 module.exports = router;

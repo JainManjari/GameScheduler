@@ -30,3 +30,24 @@ module.exports.createPlayer = async function (req, res) {
     });
   }
 };
+
+
+module.exports.getAllPlayers = async function (req, res) {
+    try {
+      let players = await Player.find({});
+      return res.json(200, {
+        data: {
+          count:players.length,
+          players,
+        },
+      });
+    } catch (err) {
+      console.log("error in getting all players controller ", err);
+      return res.json(500, {
+        data: {
+          error: err,
+        },
+      });
+    }
+  };
+  
