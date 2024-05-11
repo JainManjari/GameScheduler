@@ -9,21 +9,21 @@ module.exports.createPlayer = async function (req, res) {
         email: req.body.email,
       });
 
-      return res.json(200, {
+      return res.status(200).json({
         data: {
           player: player,
         },
       });
     }
 
-    return res.json(400, {
+    return res.status(400).json({
       data: {
         message: `Player already exists with email ${req.body.email}`,
       },
     });
   } catch (err) {
     console.log("error in creating player controller ", err);
-    return res.json(500, {
+    return res.status(500).json({
       data: {
         error: err,
       },
@@ -35,7 +35,7 @@ module.exports.createPlayer = async function (req, res) {
 module.exports.getAllPlayers = async function (req, res) {
     try {
       let players = await Player.find({});
-      return res.json(200, {
+      return res.status(200).json({
         data: {
           count:players.length,
           players,
@@ -43,7 +43,7 @@ module.exports.getAllPlayers = async function (req, res) {
       });
     } catch (err) {
       console.log("error in getting all players controller ", err);
-      return res.json(500, {
+      return res.status(500).json({
         data: {
           error: err,
         },
