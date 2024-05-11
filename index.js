@@ -10,6 +10,7 @@ const app = express();
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded());
+app.use(express.json());
 app.use(express.static("assets"));
 
 app.use('/', require('./routes'));

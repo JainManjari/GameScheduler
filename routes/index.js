@@ -1,10 +1,10 @@
 const express=require('express');
 const router=express.Router();
-const homeController = require('../controller/home');
+const homeController = require('../controller/homeController');
 
 console.log("router loaded");
 
 router.get('/', homeController.home);
-router.use("/players",require("./players"));
+router.use("/players",require("./playerRoutes"));
 
 module.exports=router;

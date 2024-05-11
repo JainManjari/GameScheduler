@@ -3,6 +3,10 @@ module.exports.home = async function(req, res) {
         return res.render("home");
     } catch(error) {
         console.log("error in loading home controller ", error);
-        return;
+        return res.json(500, {
+            data: {
+                error: error
+            }
+        });
     } 
 }
