@@ -1,7 +1,7 @@
 const cron = require("node-cron");
 
 function scheduler() {
-  cron.schedule("*/40 * * * * *", async () => {
+  cron.schedule("0 */5 * * * *", async () => {
     try {
       const Player = require("../models/player");
       const Game = require("../models/game");
@@ -11,7 +11,7 @@ function scheduler() {
       const today = moment();
       const yesterday = moment(today).subtract(2, "hours");
 
-      console.log("started ", today, yesterday);
+      console.log("started ", moment.now());
 
       let games = await Game.find({
         createdAt: {
@@ -22,6 +22,7 @@ function scheduler() {
 
       if (games.length == 0) {
         console.log(`No new games created btw ${yesterday} and ${today}`);
+        console.log("completed ", moment.now());
         return;
       }
 
@@ -114,9 +115,10 @@ function scheduler() {
       });
 
       await PlayerGameMapping.bulkWrite(bulkOps);
+      console.log("completed ", moment.now());
     } catch (err) {
       console.log(
-        "error in recalibrating player game mapping controller ",
+        "error in recalibrating player game mapping scheduler ",
         err
       );
     }

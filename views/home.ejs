@@ -3,9 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>hello world</title>
+    <title>Top Players</title>
   </head>
   <body>
-    Hello World
+    <h1>Top 5 Players</h1>
+    <ol>
+      <% for(let player of topPlayers) { %>
+      <li>
+        <div>
+          <b><%= player.playerName %></b>
+          <br>
+          <b>Total Score </b> <%= player.totalScore %> 
+          <br>
+          <b>Total Games </b>: 
+          <%=player.totalGames %>
+        </div>
+      </li>
+      <% } %>
+    </ol>
   </body>
 </html>
