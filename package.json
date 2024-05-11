@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/JainManjari/GameScheduler#readme",
   "dependencies": {
+    "ejs": "^3.1.10",
     "express": "^4.19.2"
   }
 }
