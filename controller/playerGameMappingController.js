@@ -48,16 +48,38 @@ module.exports.recalibratePlayerGameMapping = async function (req, res) {
               totalGames: 0,
               totalScore: 0,
               gameScores: [],
-              playerName: player.name
+              playerName: player.name,
             });
           }
-          playerGameMapping.playerName = player.name;
           playerGameIdMapping[playerId] = playerGameMapping;
         }
         playerGameMapping = playerGameIdMapping[playerId];
-        playerGameMapping.gameScores.push({ gameId: game._id, score: score });
-        playerGameMapping.totalGames += 1;
-        playerGameMapping.totalScore += score;
+
+        if (playerGameMapping.gameScores.length===0) {
+          playerGameMapping.gameScores.push({
+            gameId: game._id.toString(),
+            score: score,
+          });
+          playerGameMapping.totalGames += 1;
+          playerGameMapping.totalScore += score;
+        } else {
+          let found = false;
+          for (let gameScore of playerGameMapping.gameScores) {
+            if (gameScore.gameId==game._id.toString()) {
+              found = true;
+              break;
+            }
+          }
+
+          if (!found) {
+            playerGameMapping.gameScores.push({
+              gameId: game._id.toString(),
+              score: score,
+            });
+            playerGameMapping.totalGames += 1;
+            playerGameMapping.totalScore += score;
+          }
+        }
         playerGameIdMapping[playerId] = playerGameMapping;
       }
     }
@@ -77,7 +99,6 @@ module.exports.recalibratePlayerGameMapping = async function (req, res) {
             gameScores: obj.gameScores,
             totalGames: obj.totalGames,
             totalScore: obj.totalScore,
-            playerName: obj.playerName
           },
         },
       };
@@ -87,15 +108,17 @@ module.exports.recalibratePlayerGameMapping = async function (req, res) {
 
     let responseData = [];
 
-    for(let playerGameMapping of playerGameMappings) {
-        let playerGameMapObj = {};
-        playerGameMapObj.playerName = playerGameMapping.playerName;
-        playerGameMapObj.totalScore = playerGameMapping.totalScore;
-        playerGameMapObj.totalGames = playerGameMapping.totalGames;
-        playerGameMapObj.gameScores = playerGameMapping.gameScores.map((gameScore) => ({
-            score: gameScore.score,
-        }))
-        responseData.push(playerGameMapObj);
+    for (let playerGameMapping of playerGameMappings) {
+      let playerGameMapObj = {};
+      playerGameMapObj.playerName = playerGameMapping.playerName;
+      playerGameMapObj.totalScore = playerGameMapping.totalScore;
+      playerGameMapObj.totalGames = playerGameMapping.totalGames;
+      playerGameMapObj.gameScores = playerGameMapping.gameScores.map(
+        (gameScore) => ({
+          score: gameScore.score,
+        })
+      );
+      responseData.push(playerGameMapObj);
     }
 
     return res.status(200).json({
