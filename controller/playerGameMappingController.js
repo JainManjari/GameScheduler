@@ -149,9 +149,13 @@ module.exports.recalibratePlayerGameMapping = async function (req, res) {
 
 module.exports.getTopPlayers = async function (req, res) {
   try {
+    let limit = req.query.limit;
+    if (isNaN(limit)) {
+      limit = 5;
+    }
     let playerGameMapping = await PlayerGameMapping.find({})
       .sort({ totalScore: -1 })
-      .limit(5);
+      .limit(limit);
 
     playerGameMapping = playerGameMapping.map((playerGameMap) => ({
       playerName: playerGameMap.playerName,

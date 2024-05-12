@@ -9,9 +9,14 @@ module.exports.createPlayer = async function (req, res) {
         email: req.body.email,
       });
 
+      const playerResponseDTO = {
+        name: player.name,
+        email: player.email,
+      };
+
       return res.status(200).json({
         data: {
-          player: player,
+          player: playerResponseDTO,
         },
       });
     }
@@ -31,23 +36,29 @@ module.exports.createPlayer = async function (req, res) {
   }
 };
 
-
 module.exports.getAllPlayers = async function (req, res) {
-    try {
-      let players = await Player.find({});
-      return res.status(200).json({
-        data: {
-          count:players.length,
-          players,
-        },
-      });
-    } catch (err) {
-      console.log("error in getting all players controller ", err);
-      return res.status(500).json({
-        data: {
-          error: err,
-        },
-      });
+  try {
+    let players = await Player.find({}).sort({ createdAt: -1 });
+    const playerResponseDTOs = [];
+    for (let player of players) {
+      const playerResponseDTO = {
+        name: player.name,
+        email: player.email,
+      };
+      playerResponseDTOs.push(playerResponseDTO);
     }
-  };
-  
+    return res.status(200).json({
+      data: {
+        count: players.length,
+        players: playerResponseDTOs,
+      },
+    });
+  } catch (err) {
+    console.log("error in getting all players controller ", err);
+    return res.status(500).json({
+      data: {
+        error: err,
+      },
+    });
+  }
+};
