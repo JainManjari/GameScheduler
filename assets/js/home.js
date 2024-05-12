@@ -5,7 +5,6 @@ function fetchdata() {
     url: "/games/recalibrate/top-players",
     type: "get",
     success: function (data) {
-      console.log(JSON.stringify(data));
       const playerGameMappings = data.data.playerGameMapping;
       if (playerGameMappings) {
         $("#top-5-players li").remove();
@@ -22,7 +21,6 @@ function fetchdata() {
           </li>`
           );
         }
-        console.log("completed rendering");
       }
     },
     complete: function (data) {
@@ -39,15 +37,22 @@ $(document).ready(function () {
 
 const createGameButton = $("#create-game");
 const gameDisplay = $("#game-display");
+const noOfPlayers = $("#no-of-players");
 
 createGameButton.on("click", function (e) {
   e.preventDefault();
   console.log("button clicked");
+  const noOfPlayersVal = parseInt(noOfPlayers.val());
+  const data = {
+    count: noOfPlayersVal,
+  };
   $.ajax({
     url: "/games/",
     type: "post",
+    contentType: 'application/json',
+    data: JSON.stringify(data),
+    dataType: 'json',
     success: function (data) {
-      console.log(JSON.stringify(data));
       const playerScores = data.responseData.playerScores;
       let string = `<div style="border:1px solid;margin:10px;width:500px">`;
       if (playerScores) {
@@ -58,7 +63,7 @@ createGameButton.on("click", function (e) {
                 </li>`;
         }
         string.append += `</div>`;
-        gameDisplay.append(string);
+        gameDisplay.prepend(string);
       }
     },
   }).fail(function (err) {
