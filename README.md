@@ -1,9 +1,9 @@
 # Gaming Service
-Implementing a service which keep tracks of top scores of players.
+Implementing a service that keeps track of the top scores of players.
 
 ### Functional Requirements
 1. Creating new players
-2. Creating new game with defining count of players.
+2. Creating a new game with a defining count of players.
 3. Scheduling a cron job which runs every 2 hours. It is responsible for updating each player with his/her new total score by fetching new games created in the last 2 hours.
 
 
@@ -304,22 +304,44 @@ RESPONSE
 ```
 
 ### Flowchart
-
+<img width="1362" alt="Screenshot 2024-05-12 at 9 16 36 AM" src="https://github.com/JainManjari/GameScheduler/assets/54873596/99d30718-2bd5-49d1-9983-5d338990f839">
 
 
 ### Current Architecture
+<img width="861" alt="Screenshot 2024-05-12 at 10 15 34 AM" src="https://github.com/JainManjari/GameScheduler/assets/54873596/0d4f0c44-a3e4-47a2-8419-4a5039dc9304">
 
 
-### Future Improvements in Architecture
-
+### Future improvements in the Current Architecture
+<img width="1201" alt="Screenshot 2024-05-12 at 10 12 01 AM" src="https://github.com/JainManjari/GameScheduler/assets/54873596/7b32d27c-52f7-4fe6-bdc1-ae038cb2ecc9">
 
 
 ### Testing 
 
 1. Create a player
-
+<img width="624" alt="Screenshot 2024-05-12 at 10 55 06 AM" src="https://github.com/JainManjari/GameScheduler/assets/54873596/dad4dbff-7b2e-4b23-9c8c-acc8461a3abc">
+<br/>
+<br/>
 2. Create a game
+<img width="1080" alt="Screenshot 2024-05-12 at 10 57 06 AM" src="https://github.com/JainManjari/GameScheduler/assets/54873596/92557d92-61fc-4fe1-83d0-97e20cdf8883">
+<br/>
+<br/>
+3. Scheduler running in the background
+<br/>
+<img width="717" alt="Screenshot 2024-05-12 at 10 57 31 AM" src="https://github.com/JainManjari/GameScheduler/assets/54873596/da1e2a0c-cba5-45ee-96c5-65edec5200f3">
+<br/>
+<br/>
+<img width="756" alt="Screenshot 2024-05-12 at 10 59 10 AM" src="https://github.com/JainManjari/GameScheduler/assets/54873596/c38f011e-4c64-407c-8ccb-df314b8243a8">
+<br/>
+<br/>
+4. Displaying the top 5 players on UI
+<br/>
+<img width="880" alt="Screenshot 2024-05-12 at 11 00 01 AM" src="https://github.com/JainManjari/GameScheduler/assets/54873596/17bbc595-7a6e-4d79-b904-9553aa3de375">
+<br/>
 
-3. Scheduler running in background
 
-4. Displaying top 5 players on UI
+## Running project
+
+1. git clone https://github.com/JainManjari/GameScheduler.git
+2. npm install
+3. npm start
+4. Open browser and go to http://localhost:8000
