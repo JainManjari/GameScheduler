@@ -1,11 +1,25 @@
 # Gaming Service
 Implementing a service that keeps track of the top scores of players.
+<br>
+
+## Topics
+1. [Functional Requirements](#functional-requirements).
+2. [Entities](#entities).
+3. [High Level of API Designs](#high-level-of-api-designs).
+4. [Flowchart](#flowchart).
+5. [Current Architecture](#current-architecture).
+6. [Future improvements in the Current Architecture](#future-improvements-in-the-current-architecture).
+7. [Testing](#testing).
+8. [Running project](#running-project).
+<br/>
+<br/>
 
 ### Functional Requirements
 1. Creating new players
 2. Creating a new game with a defining count of players.
 3. Scheduling a cron job which runs every 2 hours. It is responsible for updating each player with his/her new total score by fetching new games created in the last 2 hours.
-
+<br>
+<br>
 
 ### Entities
 1. Player
@@ -145,8 +159,10 @@ Implementing a service that keeps track of the top scores of players.
     }
 }
 ```
+<br>
+<br>
 
-### API Design
+### High Level of API Designs
 1. Create a player:
 ```
 POST '/players'
@@ -302,18 +318,24 @@ RESPONSE
     }
 }
 ```
+<br>
+<br>
 
 ### Flowchart
 <img width="1362" alt="Screenshot 2024-05-12 at 9 16 36 AM" src="https://github.com/JainManjari/GameScheduler/assets/54873596/99d30718-2bd5-49d1-9983-5d338990f839">
+<br>
+<br>
 
 
 ### Current Architecture
 <img width="861" alt="Screenshot 2024-05-12 at 10 15 34 AM" src="https://github.com/JainManjari/GameScheduler/assets/54873596/0d4f0c44-a3e4-47a2-8419-4a5039dc9304">
-
+<br>
+<br>
 
 ### Future improvements in the Current Architecture
 <img width="1201" alt="Screenshot 2024-05-12 at 10 12 01 AM" src="https://github.com/JainManjari/GameScheduler/assets/54873596/7b32d27c-52f7-4fe6-bdc1-ae038cb2ecc9">
-
+<br>
+<br>
 
 ### Testing 
 
@@ -337,6 +359,7 @@ RESPONSE
 <br/>
 <img width="880" alt="Screenshot 2024-05-12 at 11 00 01 AM" src="https://github.com/JainManjari/GameScheduler/assets/54873596/17bbc595-7a6e-4d79-b904-9553aa3de375">
 <br/>
+<br>
 
 
 ## Running project
@@ -345,3 +368,7 @@ RESPONSE
 2. npm install
 3. npm start
 4. Open browser and go to http://localhost:8000
+<br>
+<br>
+
+## For further assistance please reach me @ manjarijain98@gmail.com
