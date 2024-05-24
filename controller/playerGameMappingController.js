@@ -11,6 +11,7 @@ module.exports.recalibratePlayerGameMapping = async function (req, res) {
 
     console.log("started ", today, yesterday);
 
+    // to find new games created in the last 2 hours
     let games = await Game.find({
       createdAt: {
         $gte: yesterday.toDate(),
@@ -35,7 +36,14 @@ module.exports.recalibratePlayerGameMapping = async function (req, res) {
         let playerId = playerScore.playerId.toString();
         let player;
 
+        /**
+         * 
+         * 
+         *  select * from players where player_id in ("player1", "player2", "player3");
+         */
+
         if (!(playerId in playerIdMapping)) {
+          // 
           player = await Player.findById(playerId);
           playerIdMapping[playerId] = player;
         }
@@ -152,6 +160,13 @@ module.exports.getTopPlayers = async function (req, res) {
     let limit = req.query.limit;
     if (isNaN(limit)) {
       limit = 5;
+    }
+    if(limit<=0) {
+      return res.status(400).json({
+        data: {
+          message:"Enter limit in.",
+        },
+      });
     }
     let playerGameMapping = await PlayerGameMapping.find({})
       .sort({ totalScore: -1 })

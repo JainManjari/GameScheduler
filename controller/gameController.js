@@ -55,7 +55,7 @@ module.exports.createGame = async function (req, res) {
 
 module.exports.getAllGames = async function (req, res) {
   try {
-    let games = await Game.find({});
+    let games = await Game.find({}).sort({ createdAt: -1 });
 
     let responseData = [];
 

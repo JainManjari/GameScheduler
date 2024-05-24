@@ -2,6 +2,8 @@ const Player = require("../models/player");
 
 module.exports.createPlayer = async function (req, res) {
   try {
+    let email = req.body.email;
+    
     let player = await Player.findOne({ email: req.body.email });
     if (!player) {
       player = await Player.create({
@@ -27,6 +29,7 @@ module.exports.createPlayer = async function (req, res) {
       },
     });
   } catch (err) {
+    
     console.log("error in creating player controller ", err);
     return res.status(500).json({
       data: {
